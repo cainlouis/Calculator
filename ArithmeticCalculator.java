@@ -45,7 +45,8 @@ public class ArithmeticCalculator {
         String op = opStack.pop();
         switch (op) {
             case "^":
-                valStack.push(Double.toString(Math.pow(num1, num2)));
+                valStack.push(Integer.toString((int) Math.pow(num1, num2)));
+                break;
             case "*":
                 valStack.push(Integer.toString(num1 * num2));
                 break;

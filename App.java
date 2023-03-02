@@ -22,10 +22,10 @@ public class App {
             Scanner myScanner = new Scanner(equationsTxt);
             while (myScanner.hasNextLine()) {
                 String equation = myScanner.nextLine();
-                myWriter.write(equation + "\n");
+                myWriter.write("Equation: " + equation + "\n");
                 // Do calculation
                 String result = calculator.calculate(equation);
-                myWriter.write(result + "\n");
+                myWriter.write("Result: " + result + "\n");
             }
             System.out.print("Done");
             // close writer and scanner
