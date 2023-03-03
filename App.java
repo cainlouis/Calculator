@@ -24,7 +24,7 @@ public class App {
                 String equation = myScanner.nextLine();
                 myWriter.write("Equation: " + equation + "\n");
                 // Do calculation
-                String result = calculator.calculate(equation);
+                String result = calculator.evalExp(equation);
                 myWriter.write("Result: " + result + "\n");
             }
             System.out.print("Done");

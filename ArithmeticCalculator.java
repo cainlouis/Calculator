@@ -9,75 +9,88 @@ public class ArithmeticCalculator {
         this.opStack = new Stack();
     }
 
-    public String calculate(String equation) {
+    public String evalExp(String equation) {
         String[] tokens = equation.split(" ");
         for (String token : tokens) {
-            if (token.equals("(")) {
-                opStack.push(token);
-            } else if (token.equals(")")) {
-                while (!opStack.isEmpty() && !opStack.top().equals("(")) {
-                    evaluateOp();
-                }
-                opStack.pop();
-            } else if (isNum(token)) {
+            if (isNum(token)) {
                 valStack.push(token);
-            } else if (isOp(token)) {
-                while (!opStack.isEmpty() && precedence(token, opStack.top())) {
-                    System.out.println("call");
-                    evaluateOp();
-                }
+            } else {
+                repeatOps(token);
                 opStack.push(token);
             }
         }
-        while (!opStack.isEmpty()) {
-            evaluateOp();
-        }
-        return valStack.pop();
+        repeatOps("$");
+        String result = valStack.top();
+        valStack = new Stack();
+        opStack = new Stack();
+        return result;
     }
 
-    private void evaluateOp() {
-        System.out.println("op " + opStack.top());
-        System.out.println("Top " + valStack.top());
-        int num2 = Integer.parseInt(valStack.pop());
+    public void repeatOps(String refOp) {
+        while (valStack.size() > 1 && precedence(opStack.top(), refOp)) {
+            doOp();
+        }
+    }
+
+    public void doOp() {
         int num1 = Integer.parseInt(valStack.pop());
-        System.out.println("num1 " + num1);
-        System.out.println("num2 " + num2);
+        int num2 = Integer.parseInt(valStack.pop());
         String op = opStack.pop();
+        valStack.push(evaluateOp(num2, num1, op));
+    }
+
+    // public String calculate(String equation) {
+    //     String[] tokens = equation.split(" ");
+    //     for (String token : tokens) {
+    //         if (token.equals("(")) {
+    //             opStack.push(token);
+    //         } else if (token.equals(")")) {
+    //             while (!opStack.isEmpty() && !opStack.top().equals("(")) {
+    //                 evaluateOp();
+    //             }
+    //             opStack.pop();
+    //         } else if (isNum(token)) {
+    //             valStack.push(token);
+    //         } else if (isOp(token)) {
+    //             while (!opStack.isEmpty() && precedence(token, opStack.top())) {
+    //                 System.out.println("call");
+    //                 evaluateOp();
+    //             }
+    //             opStack.push(token);
+    //         }
+    //     }
+    //     while (!opStack.isEmpty()) {
+    //         evaluateOp();
+    //     }
+    //     return valStack.pop();
+    // }
+
+    private String evaluateOp(int num1, int num2, String op) {
         switch (op) {
             case "^":
-                valStack.push(Integer.toString((int) Math.pow(num1, num2)));
-                break;
+                return Integer.toString((int) Math.pow(num1, num2));
             case "*":
-                valStack.push(Integer.toString(num1 * num2));
-                break;
+                return Integer.toString(num1 * num2);
             case "/":
-                valStack.push(Integer.toString(num1 / num2));
-                break;
+                return Integer.toString(num1 / num2);
             case "+":
-                valStack.push(Integer.toString(num1 + num2));
-                break;
+                return Integer.toString(num1 + num2);
             case "-":
-                valStack.push(Integer.toString(num1 - num2));
-                break;
+                return Integer.toString(num1 - num2);
             case ">":
-                valStack.push(num1 > num2 ? "True" : "False");
-                break;
+                return num1 > num2 ? "True" : "False";
             case ">=":
-                valStack.push(num1 >= num2 ? "True" : "False");
-                break;
+                return num1 >= num2 ? "True" : "False";
             case "<=":
-                valStack.push(num1 <= num2 ? "True" : "False");
-                break;
+                return num1 <= num2 ? "True" : "False";
             case "<":
-                valStack.push(num1 < num2 ? "True" : "False");
-                break;
+                return num1 < num2 ? "True" : "False";
             case "==":
-                valStack.push(num1 == num2 ? "True" : "False");
-                break;
+                return num1 == num2 ? "True" : "False";
             case "!=":
-                valStack.push(num1 != num2 ? "True" : "False");
-                break;  
+                return num1 != num2 ? "True" : "False";
         }
+        return op;
     }
 
     private boolean isNum(String strNum) {
@@ -106,9 +119,8 @@ public class ArithmeticCalculator {
 
     private boolean precedence(String token, String op) {
         int tok = assignValueToOp(token);
-        System.out.println("Token " + token);
         int o = assignValueToOp(op);
-        return tok >= o;
+        return tok <= o;
     }
 
     private int assignValueToOp(String op) {
@@ -132,6 +144,8 @@ public class ArithmeticCalculator {
             case "==":
             case "!=":
                 return 6;
+            case "$":
+                return 7;
         }
         return 0;
     }
