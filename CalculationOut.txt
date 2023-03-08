@@ -1,20 +1,40 @@
 Equation: 14 >= 4 + 7 * 12
-Result: False
+>>> Result: False
 Equation: 11 >= 3 * 4 - 6
-Result: True
+>>> Result: True
 Equation: 2 ^ 3 + 2
-Result: 10
+>>> Result: 10
 Equation: 4 * 10
-Result: 40
+>>> Result: 40
 Equation: 88 == 4 + 7 * 12
-Result: True
+>>> Result: True
 Equation: 88 != 4 + 7 * 12
-Result: False
+>>> Result: False
 Equation: 10 / 2 <= 2 ^ 2 + 1
-Result: True
+>>> Result: True
 Equation: 10 + 4 * 2
-Result: 18
+>>> Result: 18
 Equation: 2 * 4 + 10
-Result: 18
+>>> Result: 18
 Equation: 2 * 4 + 10 / 2
-Result: 13
+>>> Result: 13
+Equation: 4 * ( 10 + 2 )
+>>> Result: 48
+Equation: 4 * ( 10 + 6 ) / 4
+>>> Result: 16
+Equation: ( ( 3 - 2 ) * ( 2 + 1 ) ) 
+>>> Result: 3
+Equation: ( 7 ^ ( 7 - 5 ) - 4 ) / 3 ^ 2
+>>> Result: 5
+Equation: 7 + -5 / 2
+>>> Result: 5
+Equation: 2 ^ 5 - 8 + ( 12 / 6 )
+>>> Result: 26
+Equation: 14 * ( 10 + 2 + ( 6 - 2 ) )
+>>> Result: 224
+Equation: 18 / 9 + 12 / 6 * 3
+>>> Result: 8
+Equation: 2 ^ 4 + 12 <= 32
+>>> Result: True
+Equation: 60 / 12 - 3
+>>> Result: 2

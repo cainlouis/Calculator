@@ -6,7 +6,9 @@ import java.io.IOException;
 
 public class App {
     public static void main(String[] args) {
+        //Create the calculator object
         ArithmeticCalculator calculator = new ArithmeticCalculator();
+        // Call app which will read the file and the evaluate the expression
         app(calculator);
     }
 
@@ -23,9 +25,9 @@ public class App {
             while (myScanner.hasNextLine()) {
                 String equation = myScanner.nextLine();
                 myWriter.write("Equation: " + equation + "\n");
-                // Do calculation
+                // Do calculation and write to file
                 String result = calculator.evalExp(equation);
-                myWriter.write("Result: " + result + "\n");
+                myWriter.write(">>> Result: " + result + "\n");
             }
             System.out.print("Done");
             // close writer and scanner
